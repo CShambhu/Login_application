@@ -1,16 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:login_application/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String username = "";
+
+  bool _balanceHidden = true;
+
+  final List<Map<String, dynamic>> transaction = [
+    {"name": "Amazon", "sub": "Shopping", "price": "\$333", "date": "may 12"},
+    {
+      "name": "Starbucks",
+      "sub": "Food & Drinks",
+      "price": "\$333",
+      "date": "may 12",
+    },
+    {"name": "Salary", "sub": "Income", "price": "\$333", "date": "may 10"},
+  ];
+
+  void initState() {
+    super.initState();
+    loadUsername(); // ✅ Call it here
+  }
+
+  Future<void> loadUsername() async {
+    final pref = await SharedPreferences.getInstance();
+    setState(() {
+      username = pref.getString("username") ?? "User";
+    });
+  }
+
+  Future<void> logOut() async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.clear();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(left: 5, top: 60, right: 5),
-        child: SizedBox(
-          height: 750,
-          width: 400,
+      body: SingleChildScrollView(
+        physics: ScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 5, top: 60, right: 5),
           child: Card(
             child: Padding(
               padding: const EdgeInsets.only(left: 25, top: 30, right: 20),
@@ -19,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "Hi, Username !",
+                        "Hi, $username !",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -30,14 +72,14 @@ class HomeScreen extends StatelessWidget {
                       Icon(Icons.notifications),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 200),
+                  Align(
+                    alignment: Alignment.centerLeft,
                     child: Text("Welcome back"),
                   ),
 
                   SizedBox(
-                    height: 180,
-                    width: 350,
+                    // height: 180,
+                    width: double.infinity,
                     child: Card(
                       // ask about card padding, hi username, card , quick action ko padding alignment
                       shape: RoundedRectangleBorder(
@@ -55,16 +97,22 @@ class HomeScreen extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  "\$1,250.00",
+                                  _balanceHidden ? "*******" : "\$1,250.00",
                                   style: TextStyle(fontSize: 35),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 60),
-                                  child: Icon(
-                                    Icons.wallet,
-                                    size: 60,
-                                  ), // wallet ko size increase garda , wallet text, balance, view details ko padding effect garira xa
+                                IconButton(
+                                  onPressed: () => setState(() {
+                                    _balanceHidden = !_balanceHidden;
+                                  }),
+
+                                  icon: Icon(
+                                    _balanceHidden
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                  ),
                                 ),
+                                Spacer(),
+                                Icon(Icons.wallet, size: 60),
                               ],
                             ),
                             SizedBox(height: 10),
@@ -149,130 +197,158 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 10),
-                  SizedBox(
-                    height: 80,
-                    width: 380,
 
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusGeometry.circular(5),
-                      ),
-                      color: const Color.fromARGB(255, 239, 239, 240),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Icon(Icons.animation),
+                  //Listview
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: transaction.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: ListTile(
+                          leading: CircleAvatar(
+                            child: Text(transaction[index]["name"][0]),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, top: 10),
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Amazon",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                Text("Shopping"),
-                              ],
-                            ),
+                          title: Text(transaction[index]["name"]),
+                          subtitle: Text(transaction[index]["sub"]),
+                          trailing: Column(
+                            children: [
+                              Text(transaction[index]["price"]),
+                              Text(transaction[index]["date"]),
+                            ],
                           ),
-                          Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, right: 10),
-                            child: Column(
-                              children: [Text("-\$60.00"), Text("May 12")],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+                    },
                   ),
-                  SizedBox(
-                    height: 80,
-                    width: 350,
-
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusGeometry.circular(10),
-                      ),
-                      color: const Color.fromARGB(255, 239, 239, 240),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Icon(Icons.animation),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, top: 10),
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Starbucks",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                Text("Food & Drink"),
-                              ],
-                            ),
-                          ),
-                          Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, right: 10),
-                            child: Column(
-                              children: [Text("-\$5.25"), Text("May 12")],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 80,
-                    width: 350,
-
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadiusGeometry.circular(10),
-                      ),
-                      color: const Color.fromARGB(255, 239, 239, 240),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: Icon(Icons.work),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, top: 10),
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Salary",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                Text("Income"),
-                              ],
-                            ),
-                          ),
-                          Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10, right: 10),
-                            child: Column(
-                              children: [Text("+\$1500.00"), Text("May 12")],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  ElevatedButton(
+                    onPressed: () {
+                      logOut();
+                    },
+                    child: Text("Log Out"),
                   ),
                 ],
+
+                // SizedBox(
+                //   height: 80,
+                //   width: 380,
+                //   child: Card(
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadiusGeometry.circular(5),
+                //     ),
+                //     color: const Color.fromARGB(255, 239, 239, 240),
+                //     child: Row(
+                //       children: [
+                //         Padding(
+                //           padding: const EdgeInsets.only(left: 15),
+                //           child: Icon(Icons.animation),
+                //         ),
+                //         Padding(
+                //           padding: const EdgeInsets.only(left: 15, top: 10),
+                //           child: Column(
+                //             children: [
+                //               Text(
+                //                 "Amazon",
+                //                 style: TextStyle(
+                //                   fontWeight: FontWeight.bold,
+                //                   fontSize: 15,
+                //                 ),
+                //               ),
+                //               Text("Shopping"),
+                //             ],
+                //           ),
+                //         ),
+                //         Spacer(),
+                //         Padding(
+                //           padding: const EdgeInsets.only(top: 10, right: 10),
+                //           child: Column(
+                //             children: [Text("-\$60.00"), Text("May 12")],
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 80,
+                //   width: 350,
+                //   child: Card(
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadiusGeometry.circular(10),
+                //     ),
+                //     color: const Color.fromARGB(255, 239, 239, 240),
+                //     child: Row(
+                //       children: [
+                //         Padding(
+                //           padding: const EdgeInsets.only(left: 15),
+                //           child: Icon(Icons.animation),
+                //         ),
+                //         Padding(
+                //           padding: const EdgeInsets.only(left: 15, top: 10),
+                //           child: Column(
+                //             children: [
+                //               Text(
+                //                 "Starbucks",
+                //                 style: TextStyle(
+                //                   fontWeight: FontWeight.bold,
+                //                   fontSize: 15,
+                //                 ),
+                //               ),
+                //               Text("Food & Drink"),
+                //             ],
+                //           ),
+                //         ),
+                //         Spacer(),
+                //         Padding(
+                //           padding: const EdgeInsets.only(top: 10, right: 10),
+                //           child: Column(
+                //             children: [Text("-\$5.25"), Text("May 12")],
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 80,
+                //   width: 350,
+                //   child: Card(
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadiusGeometry.circular(10),
+                //     ),
+                //     color: const Color.fromARGB(255, 239, 239, 240),
+                //     child: Row(
+                //       children: [
+                //         Padding(
+                //           padding: const EdgeInsets.only(left: 15),
+                //           child: Icon(Icons.work),
+                //         ),
+                //         Padding(
+                //           padding: const EdgeInsets.only(left: 15, top: 10),
+                //           child: Column(
+                //             children: [
+                //               Text(
+                //                 "Salary",
+                //                 style: TextStyle(
+                //                   fontWeight: FontWeight.bold,
+                //                   fontSize: 15,
+                //                 ),
+                //               ),
+                //               Text("Income"),
+                //             ],
+                //           ),
+                //         ),
+                //         Spacer(),
+                //         Padding(
+                //           padding: const EdgeInsets.only(top: 10, right: 10),
+                //           child: Column(
+                //             children: [Text("+\$1500.00"), Text("May 12")],
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ),
             ),
           ),

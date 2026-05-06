@@ -62,7 +62,7 @@ class Settings extends StatelessWidget {
                       SizedBox(height: 40),
 
                       SizedBox(
-                        height: 400,
+                        height: 300,
                         width: 300,
                         child: Card(
                           child: Column(
