@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void initState() {
     super.initState();
-    loadUsername(); // ✅ Call it here
+    loadUsername(); //
   }
 
   Future<void> loadUsername() async {
@@ -37,14 +37,51 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Future<void> logOut() async {
-    final pref = await SharedPreferences.getInstance();
-    await pref.clear();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
+  void logOut(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Logout"),
+          content: Text("Are you sure you want to logout? "),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () async {
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                await pref.remove("username");
+                await pref.remove("password");
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text("Logout Successfully")));
+              },
+              child: Text("Yes"),
+            ),
+          ],
+        );
+      },
     );
   }
+
+  // Future<void> yesOut(BuildContext context) async {
+  //   final pref = await SharedPreferences.getInstance();
+  //   await pref.remove("username");
+  //   Navigator.pushReplacement(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => LoginScreen()),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -223,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      logOut();
+                      logOut(context);
                     },
                     child: Text("Log Out"),
                   ),

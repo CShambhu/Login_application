@@ -66,7 +66,7 @@ class _RegistrationState extends State<Registration> {
                     "Create Account",
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
-                  Text("Fill in the details to get started"),
+                  Text("ACCOUNT REGISTRATION"),
 
                   SizedBox(height: 15),
                   Padding(
