@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login_application/home.dart';
-import 'package:login_application/localstorage.dart';
-import 'package:login_application/new.dart';
-import 'package:login_application/login.dart';
-import 'package:login_application/registration.dart';
+import 'package:login_application/datetime.dart';
+import 'package:login_application/new/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: LoginScreen(),
+      home: Profile(),
     );
   }
 }

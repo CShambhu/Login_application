@@ -3,7 +3,7 @@ import 'package:login_application/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     {"name": "Salary", "sub": "Income", "price": "\$333", "date": "may 10"},
   ];
 
+  @override
   void initState() {
     super.initState();
     loadUsername(); //
