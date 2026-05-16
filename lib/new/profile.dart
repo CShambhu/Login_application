@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:login_application/datetime.dart';
+import 'package:login_application/new/profilesettings.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -8,6 +10,25 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  TextEditingController dateController = TextEditingController();
+  DateTime? selectedDate;
+
+  Future<void> pickDate() async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(3000),
+    );
+
+    if (pickedDate != null) {
+      setState(() {
+        selectedDate = pickedDate;
+      });
+      dateController.text =
+          "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +52,12 @@ class _ProfileState extends State<Profile> {
             ),
             // Spacer(),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileSettings()),
+                );
+              },
               icon: Icon(Icons.settings, color: Colors.white),
             ),
           ],
@@ -198,10 +224,12 @@ class _ProfileState extends State<Profile> {
                                             ),
                                           ),
                                           Text("Date of Birth"),
-                                          TextField(
+                                          TextFormField(
+                                            controller: dateController,
+                                            readOnly: true,
                                             decoration: InputDecoration(
                                               suffixIcon: IconButton(
-                                                onPressed: () {},
+                                                onPressed: pickDate,
                                                 icon: Icon(
                                                   Icons.calendar_today,
                                                 ),
