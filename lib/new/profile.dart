@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:login_application/datetime.dart';
 import 'package:login_application/new/profilesettings.dart';
 
 class Profile extends StatefulWidget {
@@ -37,20 +36,18 @@ class _ProfileState extends State<Profile> {
         backgroundColor: Colors.deepPurple,
         title: Row(
           children: [
-            SizedBox(width: 48),
-            Expanded(
-              child: Center(
-                child: Text(
-                  "Profile",
-                  style: TextStyle(
-                    fontSize: 25,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+            SizedBox(width: 140),
+            Center(
+              child: Text(
+                "Profile",
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            // Spacer(),
+            Spacer(),
             IconButton(
               onPressed: () {
                 Navigator.push(
@@ -68,7 +65,6 @@ class _ProfileState extends State<Profile> {
           children: [
             SizedBox(
               height: 750,
-
               child: Stack(
                 children: [
                   Container(
@@ -142,7 +138,7 @@ class _ProfileState extends State<Profile> {
                           margin: EdgeInsets.zero,
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusGeometry.circular(30),
+                            borderRadius: BorderRadiusGeometry.circular(35),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),

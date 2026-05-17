@@ -345,6 +345,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                     ],
                   ),
                 ),
+                SizedBox(height: 20),
               ],
             ),
           ),
