@@ -11,7 +11,7 @@ class Settings extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 770,
+              height: 690,
               width: 350,
               child: Card(
                 shape: RoundedRectangleBorder(
