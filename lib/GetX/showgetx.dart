@@ -12,9 +12,11 @@ class Showgetx extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(50),
-        child: Column(
-          children: [Text("Hello ${authcontroller.username.value}")],
-        ),
+        child: Obx(() {
+          return Column(
+            children: [Text("Hello ${authcontroller.username.value}")],
+          );
+        }),
       ),
     );
   }

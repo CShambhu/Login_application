@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_application/GetX/RegistrationGetx.dart';
 import 'package:login_application/GetX/controller/auth_controller.dart';
 
 class LoginGetx extends StatelessWidget {
@@ -57,6 +58,20 @@ class LoginGetx extends StatelessWidget {
                 );
               },
               child: Text("Login", style: TextStyle(color: Colors.white)),
+            ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(220, 55),
+                backgroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(10),
+                ),
+              ),
+              onPressed: () {
+                Get.to(RegistrationGetx());
+              },
+              child: Text("REGISTER", style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
