@@ -12,9 +12,9 @@ class AuthController extends GetxController {
 
   final getStorage = GetStorage();
 
+  @override
   void onInit() {
     super.onInit();
-
     //read stored username
     username.value = getStorage.read("username") ?? '';
   }
@@ -23,22 +23,16 @@ class AuthController extends GetxController {
   // final String correctPassword = "1234";
 
   void register({
-    required String email,
-    required String phone,
+    required String email1,
+    required String phone1,
     required String userName,
     required String passWord,
   }) {
     // save data locally
     getStorage.write('username', userName);
-    getStorage.write('email', email);
-    getStorage.write('phone', phone);
+    getStorage.write('email', email1);
+    getStorage.write('phone', phone1);
     getStorage.write('password', passWord);
-
-    // update reactive values
-    username.value = userName;
-    this.email.value = email;
-    this.phone.value = phone;
-    password.value = passWord;
 
     Get.snackbar(
       "Success",
@@ -49,13 +43,13 @@ class AuthController extends GetxController {
     Get.to(LoginGetx());
   }
 
-  void login({required String userName, required String password}) {
+  void login({required String user, required String pass}) {
     final savedUser = getStorage.read("username");
     final savedPassword = getStorage.read("password");
 
-    if (userName == savedUser && password == savedPassword) {
-      username.value = userName;
-      getStorage.write('username', userName);
+    if (user == savedUser && pass == savedPassword) {
+      username.value = user;
+      getStorage.write('username', user);
       Get.to(HomeScreen());
     } else {
       Get.snackbar(
@@ -80,6 +74,5 @@ class AuthController extends GetxController {
     phone.value = '';
     password.value = '';
     Get.offAll(LoginGetx());
-    // username.value = '';
   }
 }

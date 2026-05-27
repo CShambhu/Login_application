@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login_application/login.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'controller/auth_controller.dart';
 
@@ -127,8 +125,8 @@ class _RegistrationGetxState extends State<RegistrationGetx> {
                     ),
                     onPressed: () {
                       controller.register(
-                        email: emailController.text,
-                        phone: phoneController.text,
+                        email1: emailController.text,
+                        phone1: phoneController.text,
                         userName: usernameController.text,
                         passWord: passwordController.text,
                       );

@@ -53,8 +53,8 @@ class LoginGetx extends StatelessWidget {
               ),
               onPressed: () {
                 controller.login(
-                  userName: usernameController.text,
-                  password: passwordController.text,
+                  user: usernameController.text,
+                  pass: passwordController.text,
                 );
               },
               child: Text("Login", style: TextStyle(color: Colors.white)),

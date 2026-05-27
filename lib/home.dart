@@ -228,9 +228,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       return Card(
                         child: ListTile(
-                          leading: CircleAvatar(
-                            child: Text(transaction[index]["name"][0]),
+                          leading: Image.asset(
+                            "assets/image/superman.png",
+                            height: 50,
+                            width: 50,
                           ),
+                          // leading: CircleAvatar(
+                          //   child: Text(transaction[index]["name"][0]),
+                          // ),
                           title: Text(transaction[index]["name"]),
                           subtitle: Text(transaction[index]["sub"]),
                           trailing: Column(
