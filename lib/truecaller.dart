@@ -45,6 +45,8 @@ class _TrueCallerState extends State<TrueCaller> {
               hintText: "search a number",
             ),
             SizedBox(height: 15),
+
+            //Recents
             Text(
               "Recents",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
@@ -56,11 +58,13 @@ class _TrueCallerState extends State<TrueCaller> {
                   "Scammer",
                   Icons.search,
                   ("(399)"),
-                  "10:36 AM",
+                  "10:35 AM",
                   Icons.arrow_forward_ios,
                 ),
               ],
             ),
+
+            //Discover
             Text(
               "Discover",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
@@ -68,7 +72,7 @@ class _TrueCallerState extends State<TrueCaller> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                discoverwidget(Icons.search, "Who viewed "),
+                discoverwidget(Icons.search, "Who viewed my profile"),
                 discoverwidget(Icons.add_box, "SMS Filtering"),
                 discoverwidget(Icons.add_box, "SMS Filtering"),
               ],

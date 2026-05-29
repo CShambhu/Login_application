@@ -9,6 +9,7 @@ Widget Recentwidget(
   IconData arrowicon,
 ) {
   return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
     children: [
       CircleAvatar(
         radius: 25,
@@ -26,7 +27,8 @@ Widget Recentwidget(
                 Row(
                   children: [Icon(searchicon, size: 25), Text(numberOfTimes)],
                 ),
-                Text(dateTime),
+
+                Row(children: [Text(dateTime)]),
               ],
             ),
           ],
