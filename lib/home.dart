@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login_application/login.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
+import 'package:login_application/GetX/controller/auth_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,7 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String username = "";
+  final AuthController usercontroller = Get.find<AuthController>();
 
   bool _balanceHidden = true;
 
@@ -26,55 +26,40 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-    loadUsername(); //
-  }
-
-  Future<void> loadUsername() async {
-    final pref = await SharedPreferences.getInstance();
-    setState(() {
-      username = pref.getString("username") ?? "User";
-    });
-  }
-
-  void logOut(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text("Logout"),
-          content: Text("Are you sure you want to logout? "),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("Cancel"),
-            ),
-            TextButton(
-              onPressed: () async {
-                SharedPreferences pref = await SharedPreferences.getInstance();
-                await pref.remove("username");
-                await pref.remove("password");
-
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
-
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text("Logout Successfully")));
-              },
-              child: Text("Yes"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
+  // void logOut(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (context) {
+  //       return AlertDialog(
+  //         title: Text("Logout"),
+  //         content: Text("Are you sure you want to logout? "),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () {
+  //               Navigator.pop(context);
+  //             },
+  //             child: Text("Cancel"),
+  //           ),
+  //           TextButton(
+  //             onPressed: () async {
+  //               SharedPreferences pref = await SharedPreferences.getInstance();
+  //               await pref.remove("username");
+  //               await pref.remove("password");
+  //               Navigator.push(
+  //                 context,
+  //                 MaterialPageRoute(builder: (context) => LoginScreen()),
+  //               );
+  //               ScaffoldMessenger.of(
+  //                 context,
+  //               ).showSnackBar(SnackBar(content: Text("Logout Successfully")));
+  //             },
+  //             child: Text("Yes"),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
   // Future<void> yesOut(BuildContext context) async {
   //   final pref = await SharedPreferences.getInstance();
   //   await pref.remove("username");
@@ -83,7 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
   //     MaterialPageRoute(builder: (context) => LoginScreen()),
   //   );
   // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       Text(
-                        "Hi, $username !",
+                        "Hi, ${usercontroller.username.value} !",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -244,9 +228,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemBuilder: (context, index) {
                       return Card(
                         child: ListTile(
-                          leading: CircleAvatar(
-                            child: Text(transaction[index]["name"][0]),
+                          leading: Image.asset(
+                            "assets/image/superman.png",
+                            height: 50,
+                            width: 50,
                           ),
+                          // leading: CircleAvatar(
+                          //   child: Text(transaction[index]["name"][0]),
+                          // ),
                           title: Text(transaction[index]["name"]),
                           subtitle: Text(transaction[index]["sub"]),
                           trailing: Column(
@@ -261,7 +250,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      logOut(context);
+                      // logOut(context);
+                      usercontroller.logout();
                     },
                     child: Text("Log Out"),
                   ),
