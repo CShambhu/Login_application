@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:get_storage/get_storage.dart';
 import 'package:login_application/home.dart';
 import 'package:login_application/GetX/loginGetx.dart';
 
