@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:login_application/new.dart';
-import 'package:login_application/new/profile.dart';
+import 'package:login_application/Profile/profile.dart';
 import 'package:login_application/settings.dart';
 import 'package:login_application/truecaller.dart';
 

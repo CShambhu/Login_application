@@ -5,10 +5,10 @@ import 'package:login_application/cart_design.dart';
 import 'package:login_application/home.dart';
 import 'package:login_application/Profile/profile.dart';
 import 'package:login_application/Profile/profilesettings.dart';
-import 'package:login_application/Shopping/cart_design/widgets/circle_card_widget.dart';
-import 'package:login_application/Shopping/cart_design/widgets/container_widget.dart';
-import 'package:login_application/Shopping/cart_design/widgets/row_widget.dart';
-import 'package:login_application/Shopping/my_cart/my_cart.dart';
+import 'package:login_application/online_shopping/cart_design/widgets/circle_card_widget.dart';
+import 'package:login_application/online_shopping/cart_design/widgets/container_widget.dart';
+import 'package:login_application/online_shopping/cart_design/widgets/row_widget.dart';
+import 'package:login_application/online_shopping/my_cart/my_cart.dart';
 import 'package:login_application/truecaller.dart';
 
 class CartDesign extends StatelessWidget {

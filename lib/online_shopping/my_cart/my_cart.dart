@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login_application/new_design/cart_design/cart_design.dart';
-import 'package:login_application/new_design/my_cart/widgets/my_cart_widget.dart';
+import 'package:login_application/online_shopping/cart_design/cart_design.dart';
+import 'package:login_application/online_shopping/my_cart/widgets/my_cart_widget.dart';
 
 class MyCart extends StatelessWidget {
   const MyCart({super.key});
