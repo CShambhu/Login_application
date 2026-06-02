@@ -39,6 +39,7 @@ dependencies:
   google_nav_bar: ^5.0.7
   get: ^4.7.3
   get_storage: ^2.1.1
+  carousel_slider: ^5.1.2
   
 
 dev_dependencies:

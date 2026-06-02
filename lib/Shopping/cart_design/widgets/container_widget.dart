@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Widget containerWidget(
-  IconData icon,
+  IconButton icon,
   String img,
   String title,
   String category,
@@ -20,7 +20,17 @@ Widget containerWidget(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(alignment: Alignment.topRight, child: Icon(icon)),
+          // Align(
+          //   alignment: Alignment.topRight,
+          //   child: IconButton(onPressed: () {}, icon: icon),
+          // ),
+          Align(
+            alignment: Alignment.topRight,
+            child: GestureDetector(
+              onTap: () {},
+              child: Icon(Icons.favorite_border),
+            ),
+          ),
           Center(child: Image.asset(img, height: 120)),
           Text(title, style: TextStyle(fontWeight: FontWeight.w700)),
           Text(category, style: TextStyle(fontWeight: FontWeight.w400)),
